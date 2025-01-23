@@ -1,34 +1,18 @@
-import { Routes, Route } from 'react-router-dom';
-import HomePage from 'pages/HomePage/HomePage';
-import RegistrationPage from 'pages/RegistrationPage/RegistrationPage';
-import LoginPage from 'pages/LoginPage/LoginPage';
-import ContactsPage from 'pages/ContactsPage/ContactsPage';
-import Layout from 'components/Layout/Layout';
-import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
-import RestrictedRoute from 'components/RestrictedRoute/RestrictedRoute';
+import React from 'react';  
+import { Provider } from 'react-redux';  
+import { PersistGate } from 'redux-persist/integration/react';  
+import { BrowserRouter as Router } from 'react-router-dom';  
+import { store, persistor } from './store'; // імпортуйте ваш store та persistor  
+import AppRoutes from './AppRoutes'; // імпортуйте компоненти з вашими маршрутами або основний компонент  
 
-function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<HomePage />} />
-        <Route
-          path="register"
-          element={
-            <RestrictedRoute redirectTo="/contacts" component={<RegistrationPage />} />
-          }
-        />
-        <Route
-          path="login"
-          element={<RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />}
-        />
-        <Route
-          path="contacts"
-          element={<PrivateRoute redirectTo="/login" component={<ContactsPage />} />}
-        />
-      </Route>
-    </Routes>
-  );
-}
+const App = () => (  
+    <Provider store={store}>  
+        <PersistGate loading={<div>Loading...</div>} persistor={persistor}>  
+            <Router>  
+                <AppRoutes />  
+            </Router>  
+        </PersistGate>  
+    </Provider>  
+);  
 
 export default App;
