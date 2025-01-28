@@ -20,10 +20,10 @@ const ContactsPage = () => {
 
   return (  
     <div className={styles.container}>  
-      <AppBar /> {/* Добавление AppBar */}  
-      <AuthNav /> {/* Добавление AuthNav */}  
-      <Navigation /> {/* Добавление Navigation */}  
-      <UserMenu /> {/* Добавление UserMenu */}  
+      <AppBar />   
+      <AuthNav />   
+      <Navigation />   
+      <UserMenu /> 
       <h1>Your Contacts</h1>  
       <ContactForm />  
       <Filter />  
