@@ -6,16 +6,16 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import ContactsPage from './pages/ContactsPage/ContactsPage';
 
 const App = () => (
-  <Router>
-    <Layout>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/register" element={<RegistrationPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/contacts" element={<ContactsPage />} />
-      </Routes>
-    </Layout>
-  </Router>
+  <Router>  
+    <Routes>  
+      <Route path="/" element={<HomePage />} />  
+      <Route path="/register" element={<RegistrationPage />} />  
+      <Route path="/login" element={<LoginPage />} />  
+      <Route path="/contacts" element={<ContactsPage />} />  
+      {/* Рекомендуется добавить обработку 404 */}  
+      <Route path="*" element={<NotFoundPage />} />  
+    </Routes>  
+  </Router> 
 );
 
 export default App;
