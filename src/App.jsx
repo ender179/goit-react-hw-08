@@ -12,7 +12,6 @@ const App = () => (
       <Route path="/register" element={<RegistrationPage />} />  
       <Route path="/login" element={<LoginPage />} />  
       <Route path="/contacts" element={<ContactsPage />} />  
-      {/* Рекомендуется добавить обработку 404 */}  
       <Route path="*" element={<NotFoundPage />} />  
     </Routes>  
   </Router> 
