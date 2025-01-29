@@ -9,4 +9,4 @@ const filtersSlice = createSlice({
 });  
 
 export const { setFilter } = filtersSlice.actions;  
-export default filtersSlice.reducer; // убедитесь, что этот редюсер экспортируется корректно
+export default filtersSlice.reducer; 
