@@ -1,14 +1,14 @@
-import { createSlice } from '@reduxjs/toolkit';  
-import { register, login, logout, refreshUser } from './operations';  
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';  
+import axios from 'axios';  
+
+export const logOut = createAsyncThunk('auth/logout', async () => {  
+    await axios.post('/auth/logout');  
+});  
 
 const initialState = {  
-    user: {  
-        name: null,  
-        email: null,  
-    },  
+    user: null,  
     token: null,  
     isLoggedIn: false,  
-    isRefreshing: false,  
     contacts: [],  
 };  
 
@@ -28,10 +28,9 @@ const authSlice = createSlice({
                 state.isLoggedIn = true;  
             })  
             .addCase(logout.fulfilled, (state) => {  
-                state.user = { name: null, email: null };  
+                state.user = null;  
                 state.token = null;  
                 state.isLoggedIn = false;  
-                state.contacts = [];  
             })  
             .addCase(refreshUser.fulfilled, (state, { payload }) => {  
                 state.user = payload.user;  
