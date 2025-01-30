@@ -1,4 +1,3 @@
-import React from 'react';
 import Navigation from '../Navigation/Navigation';
 import AuthNav from '../AuthNav/AuthNav';
 import UserMenu from '../UserMenu/UserMenu';
@@ -11,8 +10,12 @@ const AppBar = () => {
 
   return (
     <header className={styles.header}>
-      <Navigation />
-      {isLoggedIn ? <UserMenu /> : <AuthNav />}
+      <div className={styles.left}>
+        <Navigation />
+      </div>
+      <div className={styles.right}>
+        {isLoggedIn ? <UserMenu /> : <AuthNav />}
+      </div>
     </header>
   );
 };

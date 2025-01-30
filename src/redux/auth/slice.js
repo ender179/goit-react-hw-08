@@ -1,20 +1,47 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { register, login, logout, refreshUser } from './operations';
+
+const initialState = {
+  user: { name: null, email: null },
+  token: localStorage.getItem('token') || null,
+  isLoggedIn: false,
+  isRefreshing: false,
+};
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState: {
-    token: null,
-    user: null,
-  },
-  reducers: {
-    setAuthToken: (state, action) => {
-      state.token = action.payload;
-    },
-    setUser: (state, action) => {
-      state.user = action.payload;
-    },
+  initialState,
+  reducers: {},
+  extraReducers: builder => {
+    builder
+      .addCase(register.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.isLoggedIn = true;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.isLoggedIn = true;
+      })
+      .addCase(logout.fulfilled, state => {
+        state.user = { name: null, email: null };
+        state.token = null;
+        state.isLoggedIn = false;
+      })
+      .addCase(refreshUser.pending, state => {
+        state.isRefreshing = true;
+      })
+      .addCase(refreshUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isLoggedIn = true;
+        state.isRefreshing = false;
+      })
+      .addCase(refreshUser.rejected, state => {
+        state.isRefreshing = false;
+        state.token = null;
+      });
   },
 });
 
-export const { setAuthToken, setUser } = authSlice.actions;
 export default authSlice.reducer;

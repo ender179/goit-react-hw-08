@@ -1,10 +1,14 @@
-.link {
-    margin-left: 10px;
-    text-decoration: none;
-    color: white;
-  }
-  
-  .link.active {
-    font-weight: bold;
-    color: #61dafb;
-  }  
+nav {
+  display: flex;
+  gap: 20px;
+}
+
+a {
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #007bff;
+}
