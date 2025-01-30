@@ -1,4 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+
+export const register = createAsyncThunk(
+  'auth/register',
+  async (userData, thunkAPI) => {
+    try {
+      const response = await axios.post('/api/auth/register', userData);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
 export const logOut = createAsyncThunk(
   'auth/logOut',
