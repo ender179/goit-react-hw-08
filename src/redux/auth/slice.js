@@ -9,7 +9,7 @@ const initialState = {
     token: null,  
     isLoggedIn: false,  
     isRefreshing: false,  
-    contacts: [], // Додано поле для зберігання контактів  
+    contacts: [],  
 };  
 
 const authSlice = createSlice({  
@@ -28,23 +28,15 @@ const authSlice = createSlice({
                 state.isLoggedIn = true;  
             })  
             .addCase(logout.fulfilled, (state) => {  
-                state.user = { name: null, email: null }; // Очищаємо дані користувача  
-                state.token = null; // Очищаємо токен  
-                state.isLoggedIn = false; // Встановлюємо статус виходу користувача  
-                state.contacts = []; // Очищаємо контакти  
+                state.user = { name: null, email: null };  
+                state.token = null;  
+                state.isLoggedIn = false;  
+                state.contacts = [];  
             })  
             .addCase(refreshUser.fulfilled, (state, { payload }) => {  
                 state.user = payload.user;  
-                state.isLoggedIn = true;  
-            })  
-            .addCase(refreshUser.pending, (state) => {  
-                state.isRefreshing = true;  
-            })  
-            .addCase(refreshUser.rejected, (state) => {  
-                state.isRefreshing = false;  
             });  
     },  
 });  
 
-export const { setFilter } = authSlice.actions; // Якщо є, адаптуйте експорти  
 export default authSlice.reducer;
