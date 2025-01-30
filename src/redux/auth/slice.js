@@ -1,34 +1,20 @@
-import { createSlice } from '@reduxjs/toolkit';  
-import {  
-    fetchContacts,  
-    addContact,  
-    deleteContact,  
-    logOut,  
-} from '../auth/operations';  
+import { createSlice } from '@reduxjs/toolkit';
 
-const contactsSlice = createSlice({  
-    name: 'contacts',  
-    initialState: {  
-        items: [],  
-        loading: false,  
-        error: null,  
-    },  
-    reducers: {  
-    },  
-    extraReducers: (builder) => {  
-        builder  
-            .addCase(fetchContacts.pending, (state) => {  
-                state.loading = true;  
-            })  
-            .addCase(fetchContacts.fulfilled, (state, action) => {  
-                state.loading = false;  
-                state.items = action.payload;  
-            })  
-            .addCase(fetchContacts.rejected, (state, action) => {  
-                state.loading = false;  
-                state.error = action.payload;  
-            });  
-    },  
-});  
+const authSlice = createSlice({
+  name: 'auth',
+  initialState: {
+    token: null,
+    user: null,
+  },
+  reducers: {
+    setAuthToken: (state, action) => {
+      state.token = action.payload;
+    },
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
+  },
+});
 
-export const { actions, reducer } = contactsSlice;
+export const { setAuthToken, setUser } = authSlice.actions;
+export default authSlice.reducer;
