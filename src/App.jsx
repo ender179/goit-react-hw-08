@@ -5,8 +5,8 @@ import HomePage from './pages/HomePage/HomePage';
 import RegistrationPage from './pages/RegistrationPage/RegistrationPage';  
 import LoginPage from './pages/LoginPage/LoginPage';  
 import ContactsPage from './pages/ContactsPage/ContactsPage';  
-import Layout from './Layout'; // Убедитесь, что путь правильный.  
-import checkAuthStatus from './redux/auth/authActions';  
+import Layout from './components/Layout/Layout';  
+import { checkAuthStatus } from './redux/auth/authActions';  
 
 const App = () => {  
     const dispatch = useDispatch();  
