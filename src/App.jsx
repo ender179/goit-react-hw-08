@@ -6,7 +6,6 @@ import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
 import LoginPage from './pages/LoginPage/LoginPage';  
 import ContactsPage from './pages/ContactsPage/ContactsPage';  
 import Layout from './components/Layout/Layout';  
-import { checkAuthStatus } from './redux/auth/authActions';  
 
 const App = () => {  
     const dispatch = useDispatch();  
