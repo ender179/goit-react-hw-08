@@ -13,6 +13,18 @@ export const register = createAsyncThunk(
   }
 );
 
+export const login = createAsyncThunk(
+  'auth/login',
+  async (userData, thunkAPI) => {
+    try {
+      const response = await axios.post('/api/auth/login', userData);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 export const logOut = createAsyncThunk(
   'auth/logOut',
   async (arg, thunkAPI) => {
