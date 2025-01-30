@@ -1,41 +1,34 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';  
-import axios from 'axios';  
+import { createSlice } from '@reduxjs/toolkit';  
+import {  
+    fetchContacts,  
+    addContact,  
+    deleteContact,  
+    logOut,  
+} from '../auth/operations';  
 
-export const logOut = createAsyncThunk('auth/logout', async () => {  
-    await axios.post('/auth/logout');  
-});  
-
-const initialState = {  
-    user: null,  
-    token: null,  
-    isLoggedIn: false,  
-    contacts: [],  
-};  
-
-const authSlice = createSlice({  
-    name: 'auth',  
-    initialState,  
+const contactsSlice = createSlice({  
+    name: 'contacts',  
+    initialState: {  
+        items: [],  
+        loading: false,  
+        error: null,  
+    },  
+    reducers: {  
+    },  
     extraReducers: (builder) => {  
         builder  
-            .addCase(register.fulfilled, (state, { payload }) => {  
-                state.user = payload.user;  
-                state.token = payload.token;  
-                state.isLoggedIn = true;  
+            .addCase(fetchContacts.pending, (state) => {  
+                state.loading = true;  
             })  
-            .addCase(login.fulfilled, (state, { payload }) => {  
-                state.user = payload.user;  
-                state.token = payload.token;  
-                state.isLoggedIn = true;  
+            .addCase(fetchContacts.fulfilled, (state, action) => {  
+                state.loading = false;  
+                state.items = action.payload;  
             })  
-            .addCase(logout.fulfilled, (state) => {  
-                state.user = null;  
-                state.token = null;  
-                state.isLoggedIn = false;  
-            })  
-            .addCase(refreshUser.fulfilled, (state, { payload }) => {  
-                state.user = payload.user;  
+            .addCase(fetchContacts.rejected, (state, action) => {  
+                state.loading = false;  
+                state.error = action.payload;  
             });  
     },  
 });  
 
-export default authSlice.reducer;
+export const { actions, reducer } = contactsSlice;

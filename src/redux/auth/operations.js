@@ -33,7 +33,7 @@ export const login = createAsyncThunk('auth/login', async (credentials, thunkAPI
 export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {  
     try {  
         await axios.post('/auth/logout');  
-        clearAuthHeader(); 
+        clearAuthHeader();  
     } catch (error) {  
         return thunkAPI.rejectWithValue(error.response.data);  
     }  
@@ -44,9 +44,18 @@ export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) 
     if (token === null) {  
         return thunkAPI.rejectWithValue('Unable to fetch user');  
     }  
-    setAuthHeader(token); 
+    setAuthHeader(token);  
     try {  
         const { data } = await axios.get('/auth/refresh');  
+        return data;  
+    } catch (error) {  
+        return thunkAPI.rejectWithValue(error.response.data);  
+    }  
+});  
+
+export const fetchContacts = createAsyncThunk('contacts/fetch', async (_, thunkAPI) => {  
+    try {  
+        const { data } = await axios.get('/contacts');  
         return data;  
     } catch (error) {  
         return thunkAPI.rejectWithValue(error.response.data);  
