@@ -53,6 +53,15 @@ export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) 
     }  
 });  
 
+export const addContact = createAsyncThunk('contacts/add', async (newContact, thunkAPI) => {  
+    try {  
+        const { data } = await axios.post('/contacts', newContact);  
+        return data;  
+    } catch (error) {  
+        return thunkAPI.rejectWithValue(error.response.data);  
+    }  
+});  
+
 export const fetchContacts = createAsyncThunk('contacts/fetch', async (_, thunkAPI) => {  
     try {  
         const { data } = await axios.get('/contacts');  
