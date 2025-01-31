@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';  
 import { useSelector, useDispatch } from 'react-redux';   
-import { logout } from '../redux/auth/slice'; 
+import { logOut } from '../redux/auth/slice'; 
 import styles from './Navigation.module.css';  
 
 const Navigation = () => {  
@@ -16,7 +16,7 @@ const Navigation = () => {
             <NavLink to="/">Home</NavLink>  
             {isLoggedIn && <NavLink to="/contacts">Contacts</NavLink>}  
             {isLoggedIn ? (  
-                <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>  
+                <button onClick={handleLogout} className={styles.logoutButton}>LogOut</button>  
             ) : (  
                 <NavLink to="/login">Login</NavLink>  
             )}  
