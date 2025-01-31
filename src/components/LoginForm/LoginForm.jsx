@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';  
 import { Formik, Form, Field, ErrorMessage } from 'formik';  
 import * as Yup from 'yup';  
-import { logIn } from '../redux/auth/operations'; // проверьте путь  
+import { logIn } from '../../redux/auth/operations'; 
 import styles from './LoginForm.module.css';  
 import { Link } from 'react-router-dom';  
 
