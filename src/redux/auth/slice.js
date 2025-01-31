@@ -1,5 +1,20 @@
-import { createSlice } from '@reduxjs/toolkit';  
-import { logIn, logOut } from './operations'; // Теперь здесь import logOut  
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';  
+
+// Пример операции регистрации  
+export const register = createAsyncThunk('auth/register', async (userData) => {  
+    // Замените URL и метод на свои  
+    const response = await fetch('/api/register', {  
+        method: 'POST',  
+        body: JSON.stringify(userData),  
+        headers: {  
+            'Content-Type': 'application/json',  
+        },  
+    });  
+    if (!response.ok) {  
+        throw new Error('Registration failed');  
+    }  
+    return await response.json();  
+});  
 
 const initialState = {  
     user: null,  
@@ -19,11 +34,19 @@ const authSlice = createSlice({
                 state.error = null;  
             })  
             .addCase(logIn.rejected, (state, action) => {  
-                state.error = action.payload; // Сообщение об ошибке  
+                state.error = action.payload; 
             })  
             .addCase(logOut.fulfilled, (state) => {  
                 state.user = null;  
                 state.token = null;  
+            })  
+            .addCase(register.fulfilled, (state, action) => {  
+                state.user = action.payload.user; 
+                state.token = action.payload.token;  
+                state.error = null;  
+            })  
+            .addCase(register.rejected, (state, action) => {  
+                state.error = action.payload; 
             });  
     },  
 });  
