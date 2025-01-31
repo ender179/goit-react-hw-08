@@ -11,9 +11,9 @@ const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';  
 };  
 
-export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {  
+export const logOut = createAsyncThunk('auth/logOut', async (_, thunkAPI) => {  
   try {  
-    await axios.post('/users/logout');  
+    await axios.post('/users/logOut');  
     clearAuthHeader();  
   } catch (error) {  
     return thunkAPI.rejectWithValue(error.message);  
