@@ -8,7 +8,11 @@ const authSlice = createSlice({
         isRefreshing: false,  
         error: null,  
     },  
-    reducers: {},  
+    reducers: {  
+        register: (state, action) => {  
+            state.user = action.payload;   
+        },  
+    },  
     extraReducers: (builder) => {  
         builder  
             .addCase(refreshUser.pending, (state) => {  
@@ -26,9 +30,10 @@ const authSlice = createSlice({
                 state.user = action.payload;   
             })  
             .addCase(logOut.fulfilled, (state) => {  
-                state.user = null; 
+                state.user = null;   
             });  
     },  
 });  
 
+export const { register } = authSlice.actions;   
 export const authReducer = authSlice.reducer;
