@@ -1,7 +1,7 @@
 import React from 'react';  
 import * as Yup from 'yup';  
 import { useDispatch } from 'react-redux';  
-import { register } from '../../redux/auth/slice'; 
+import { register } from '../../redux/auth/operations'; 
 import { Link } from 'react-router-dom';  
 import styles from './RegistrationForm.module.css';  
 
