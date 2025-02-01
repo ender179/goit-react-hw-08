@@ -13,5 +13,10 @@ export const logIn = createAsyncThunk('auth/logIn', async (credentials, thunkAPI
 });  
 
 export const logOut = createAsyncThunk('auth/logOut', async () => {  
-    await axios.post('/users/logout'); // Предположим, что это API вызов для выхода  
+    await axios.post('/users/logout'); // Предполагаем, что это API вызов для выхода  
+});  
+
+export const refreshUser = createAsyncThunk('auth/refreshUser', async () => {  
+    const response = await axios.get('/users/current'); // API для получения текущего пользователя  
+    return response.data;  
 });

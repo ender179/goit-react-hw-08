@@ -1,50 +1,32 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';  
-
-export const register = createAsyncThunk('auth/register', async (userData) => {  
-    const response = await fetch('/api/register', {  
-        method: 'POST',  
-        body: JSON.stringify(userData),  
-        headers: {  
-            'Content-Type': 'application/json',  
-        },  
-    });  
-    if (!response.ok) {  
-        throw new Error('Registration failed');  
-    }  
-    return await response.json();  
-});  
-
-const initialState = {  
-    user: null,  
-    token: null,  
-    error: null,  
-};  
+import { createSlice } from '@reduxjs/toolkit';  
+import { logIn, logOut, refreshUser } from './operations';  
 
 const authSlice = createSlice({  
     name: 'auth',  
-    initialState,  
+    initialState: {  
+        user: null,  
+        isRefreshing: false,  
+        error: null,  
+    },  
     reducers: {},  
     extraReducers: (builder) => {  
         builder  
-            .addCase(logIn.fulfilled, (state, action) => {  
-                state.user = action.payload.user;  
-                state.token = action.payload.token;  
-                state.error = null;  
+            .addCase(refreshUser.pending, (state) => {  
+                state.isRefreshing = true;  
             })  
-            .addCase(logIn.rejected, (state, action) => {  
-                state.error = action.payload; 
+            .addCase(refreshUser.fulfilled, (state, action) => {  
+                state.user = action.payload;  
+                state.isRefreshing = false;  
+            })  
+            .addCase(refreshUser.rejected, (state, action) => {  
+                state.isRefreshing = false;  
+                state.error = action.payload;  
+            })  
+            .addCase(logIn.fulfilled, (state, action) => {  
+                state.user = action.payload;   
             })  
             .addCase(logOut.fulfilled, (state) => {  
-                state.user = null;  
-                state.token = null;  
-            })  
-            .addCase(register.fulfilled, (state, action) => {  
-                state.user = action.payload.user; 
-                state.token = action.payload.token;  
-                state.error = null;  
-            })  
-            .addCase(register.rejected, (state, action) => {  
-                state.error = action.payload; 
+                state.user = null; 
             });  
     },  
 });  
