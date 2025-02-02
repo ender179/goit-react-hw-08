@@ -27,31 +27,35 @@ const App = () => {
     <Routes>  
       <Route path="/" element={<Layout />}>  
         <Route index element={<HomePage />} />  
+        
         <Route  
           path="register"  
           element={  
-            <RestrictedRoute>  
+            <RestrictedRoute redirectTo="/contacts">  
               <RegistrationPage />  
             </RestrictedRoute>  
           }  
         />  
+        
         <Route  
           path="login"  
           element={  
-            <RestrictedRoute>  
+            <RestrictedRoute redirectTo="/contacts">  
               <LoginPage />  
             </RestrictedRoute>  
           }  
         />  
+        
         <Route  
           path="contacts"  
           element={  
-            <PrivateRoute>  
+            <PrivateRoute redirectTo="/login">  
               <ContactsPage />  
             </PrivateRoute>  
           }  
         />  
       </Route>  
+      
       <Route path="*" element={<p>Not Found Such Page</p>} />  
     </Routes>  
   );  
