@@ -1,11 +1,10 @@
-// src/components/Layout.jsx  
 import AppBar from '../AppBar/AppBar';  
 
-const Layout = ({ children }) => {  
+const Layout = ({ Outlet }) => {  
   return (  
     <div>  
       <AppBar />  
-      {children}  
+      {Outlet}  
     </div>  
   );  
 };  
