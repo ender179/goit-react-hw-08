@@ -1,4 +1,2 @@
-export const selectAllFilters = (state) => state.filters;  
-
-export const selectFilterValueByName = (state, filterName) =>   
-    selectAllFilters(state)[filterName];
+export const selectFilter = state => state.filters;
+export const selectFilterValue = state => state.filters.name;
